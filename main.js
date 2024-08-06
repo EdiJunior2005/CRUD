@@ -34,8 +34,7 @@ function menu() {
                 console.log("Não ha nada para editar!");
                 menu();
             } else {
-                index = parseInt(prompt("Qual das opções voce deseja editar: "))
-                if (index >= 0 && index < contatos.length) {
+                id = parseInt(prompt("Qual das opções voce deseja editar: "))
                     nome = prompt("Digite o novo nome: ");
                     telefone = prompt("Digite o novo telefone: ");
                     email = prompt("Digite o novo telefone: ");
@@ -44,15 +43,11 @@ function menu() {
                         telefone: parseInt(telefone),
                         email,
                     };
-                    editar(index, novoContato);
+                    editar(id, novoContato);
                     console.log("Editado com sucesso!!");
                     menu();
-                } else {
-                    console.error("nao foi possivel encontrar esse contato!");
                     return menu();
                 }
-            }
-
             break;
         case "3":
             listarContatos();
