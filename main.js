@@ -2,7 +2,7 @@ const { inserir } = require("./inserir");
 const { remover } = require("./remover");
 const { editar } = require("./editar");
 const { listarContatos } = require("./listar");
-let contatos = require("./usuraios");
+let contatos = require("./usuarios");
 
 const prompt = require("prompt-sync")();
 
@@ -19,47 +19,35 @@ function menu() {
     index = prompt('O que voce deseja fazer: ')
     switch (index) {
         case "1":
-            let contato = {
-                nome: prompt("Digite seu nome: "),
-                telefone: prompt("Digite seu telefone: "),
-                email: prompt("Digite seu email: ")
+            let telefones = []
+            let telefone
+            let nome = prompt("Digite seu nome: ")
+            while((telefone = prompt("Digite seu telefone ou deixe em branco para continuar: "))){
+                telefones.push(telefone)
             }
-            inserir(contato);
+            let email = prompt('Digite seu email: ')
+            inserir({nome, telefones, email });
             menu();
             break;
         case "2":
             listarContatos();
 
-            if (contatos.length == null) {
-                console.log("Não ha nada para editar!");
-                menu();
-            } else {
                 id = parseInt(prompt("Qual das opções voce deseja editar: "))
-                    nome = prompt("Digite o novo nome: ");
-                    telefone = prompt("Digite o novo telefone: ");
-                    email = prompt("Digite o novo telefone: ");
-                    var novoContato = {
-                        nome,
-                        telefone: parseInt(telefone),
-                        email,
-                    };
-                    editar(id, novoContato);
-                    console.log("Editado com sucesso!!");
-                    menu();
-                    return menu();
+                let novoNome = prompt("Digite o novo nome: ");
+                let novoTelefones = []
+                let novoTelefone
+                while((novoTelefone= prompt("Digite o novo telefone ou enter para continuar a edição: "))){
+                    novoTelefones.push(novoTelefone)
                 }
-            break;
+                let novoEmail = prompt("Digite o novo email: ")
+                editar(id, {nome: novoNome, telefones: novoTelefones, email: novoEmail });
+                console.log("Editado com sucesso!!");
+                return menu();
         case "3":
             listarContatos();
-
-            if (contatos == null) {
-                console.log("nao existe contatos para serem removidos!");
-                menu();
-            } else {
                 id = parseInt(prompt("Qual das opções voce deseja editar: "));
                 remover(id);
                 menu();
-            }
             break;
         case "4":
             listarContatos();
