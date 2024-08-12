@@ -15,39 +15,65 @@ function menu() {
     4. Listar
     5 Sair
 `);
-    let index
-    index = prompt('O que voce deseja fazer: ')
+    let index;
+    index = prompt("O que voce deseja fazer: ");
     switch (index) {
         case "1":
-            let telefones = []
-            let telefone
-            let nome = prompt("Digite seu nome: ")
-            while((telefone = prompt("Digite seu telefone ou deixe em branco para continuar: "))){
-                telefones.push(telefone)
+            let telefones = [];
+            let telefone;
+            let nome = prompt("Digite seu nome: ");
+            while (
+                (telefone = prompt(
+                    "Digite seu telefone ou deixe em branco para continuar: "
+                ))
+            ) {
+                telefones.push(telefone);
             }
-            let email = prompt('Digite seu email: ')
-            inserir({nome, telefones, email });
+            let email = prompt("Digite seu email: ");
+            inserir({ nome, telefones, email });
             menu();
             break;
         case "2":
             listarContatos();
-
-                id = parseInt(prompt("Qual das opções voce deseja editar: "))
+            id = parseInt(prompt("Qual das opções voce deseja editar: "));
+            if (id <= contatos.length) {
                 let novoNome = prompt("Digite o novo nome: ");
-                let novoTelefones = []
-                let novoTelefone
-                while((novoTelefone= prompt("Digite o novo telefone ou enter para continuar a edição: "))){
-                    novoTelefones.push(novoTelefone)
+                let novoTelefones = [];
+                let novoTelefone 
+                let novoEmail = prompt("Digite o novo email: ");
+                
+            
+                while ((novoTelefone = prompt("Digite o novo telefone ou enter para continuar a edição: "))){
+                    novoTelefones.push(novoTelefone);
                 }
-                let novoEmail = prompt("Digite o novo email: ")
-                editar(id, {nome: novoNome, telefones: novoTelefones, email: novoEmail });
-                console.log("Editado com sucesso!!");
+
+                editar(id, {
+                    nome: novoNome,
+                    telefones: novoTelefones,
+                    email: novoEmail,
+                });
                 return menu();
+            } else {
+                console.error("opção invalida!!!");
+                return menu();
+            }
+
         case "3":
             listarContatos();
-                id = parseInt(prompt("Qual das opções voce deseja editar: "));
-                remover(id);
-                menu();
+            id = parseInt(prompt("Qual das opções voce deseja remover: "));
+            if (id <= contatos.length) {
+                index = prompt("Voce relamente deseja remover? (S/N)").toUpperCase();
+                if (index === "S") {
+                    remover(id);
+                } else if (index === "N") {
+                    console.log("OK NADA FOI REMOVIDO!!!");
+                } else {
+                    console.error("opção invalida!!");
+                }
+            } else {
+                console.error('opção invalida!!!')
+            }
+            menu();
             break;
         case "4":
             listarContatos();
