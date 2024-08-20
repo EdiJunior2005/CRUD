@@ -7,15 +7,21 @@ const dados = [
     'carol@example.com' }
     ]; 
 function processamentoRequisicao(requisicao){
-    const {acao, nome, telefones, email} = requisicao
+    const {acao, nome, telefones, email, id} = requisicao
 
     switch(acao){
+        case 'CONSULTAR':
+            return dados.find(d => d.id === id) || { mensagem: 'nao encontrado' }
         case 'ADICIONAR':
             const novoUsuario = {id: dados.length + 1, nome, telefones, email}
             dados.push(novoUsuario)
             return { mensagem: 'Adicionado com sucesso', dado: novoUsuario }
         case 'LISTAR':
             return dados 
+        case 'REMOVER':
+            const filtro = dados.filter(d => d.id === id) || { mensagem: 'id invalido' };
+            return dados.splice(filtro, 1)
     }
+        
 }
 module.exports = { processamentoRequisicao }
